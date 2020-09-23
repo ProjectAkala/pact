@@ -1790,6 +1790,7 @@
       result.value += "IVs:           " + hp + "/" + atk + "/" + def + "/" + spa + "/" + spd + "/" + spe + "\n";
       result.value += "Language:      " + language + "\n";
       result.value += "Level:         " + level + "\n";
+      result.value += "Origin Stamp:  " + origin + "\n";
       result.value += "Moves:         " + move1 + "\n";
       if (move2 != "") {
         result.value += "               " + move2 + "\n";
@@ -1809,7 +1810,6 @@
 
 
       result.value += "Obtained From: " + previous + "\n";
-      result.value += "Origin Stamp:  " + origin + "\n";
       result.value += "Encounter:     " + encounter + "```" + "\n";
 
       $("#prompt").removeClass("d-none");
