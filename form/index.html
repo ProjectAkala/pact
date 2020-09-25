@@ -525,7 +525,7 @@
       $("#species").change();
     });
 
-    $("#species").on("change", function() {
+    $("#species").change(function() {
       var monName = $(this).children("option:selected").val().toLowerCase().replace(/[^a-z0-9]/g, "");
       var pokemon = Pokedex[monName];
       if (monName && pokemon) {
@@ -544,7 +544,7 @@
             var move = Moves[set[j]].name;
             // Filter out CAP moves
             if (move.isNonstandard && move.isNonstandard === "CAP") continue;
-            $("#move" + i).append("<option value=\"" + move + "\">" + move + "</option>");
+            $("#move" + i).append("<option id=\"move" + i + "-" + move.split(" ").join("_") + "\" value=\"" + move + "\">" + move + "</option>");
           }
         }
 
@@ -600,6 +600,50 @@
         var newNum = parseInt(resultArr.join(""));
         $("#level").val(Math.min(100, newNum));
       }
+    });
+
+    window.m1d = "";
+    $("#move1").change(function() {
+      $("#move2-" + window.m1d).prop("disabled", false);
+      $("#move3-" + window.m1d).prop("disabled", false);
+      $("#move4-" + window.m1d).prop("disabled", false);
+      window.m1d = this.value.split(" ").join("_");
+      $("#move2-" + window.m1d).prop("disabled", true);
+      $("#move3-" + window.m1d).prop("disabled", true);
+      $("#move4-" + window.m1d).prop("disabled", true);
+    });
+
+    window.m2d = "";
+    $("#move2").change(function() {
+      $("#move1-" + window.m2d).prop("disabled", false);
+      $("#move3-" + window.m2d).prop("disabled", false);
+      $("#move4-" + window.m2d).prop("disabled", false);
+      window.m2d = this.value.split(" ").join("_");
+      $("#move1-" + window.m2d).prop("disabled", true);
+      $("#move3-" + window.m2d).prop("disabled", true);
+      $("#move4-" + window.m2d).prop("disabled", true);
+    });
+
+    window.m3d = "";
+    $("#move3").change(function() {
+      $("#move1-" + window.m3d).prop("disabled", false);
+      $("#move2-" + window.m3d).prop("disabled", false);
+      $("#move4-" + window.m3d).prop("disabled", false);
+      window.m3d = this.value.split(" ").join("_");
+      $("#move1-" + window.m3d).prop("disabled", true);
+      $("#move2-" + window.m3d).prop("disabled", true);
+      $("#move4-" + window.m3d).prop("disabled", true);
+    });
+
+    window.m4d = "";
+    $("#move4").change(function() {
+      $("#move1-" + window.m4d).prop("disabled", false);
+      $("#move2-" + window.m4d).prop("disabled", false);
+      $("#move3-" + window.m4d).prop("disabled", false);
+      window.m4d = this.value.split(" ").join("_");
+      $("#move1-" + window.m4d).prop("disabled", true);
+      $("#move2-" + window.m4d).prop("disabled", true);
+      $("#move3-" + window.m4d).prop("disabled", true);
     });
   </script>
 </body>
