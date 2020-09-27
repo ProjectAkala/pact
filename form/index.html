@@ -501,15 +501,14 @@
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@pkmn/dex@0.2.4/build/learnsets.min.js" integrity="sha384-q9BdP/VfdiJXae4avpGuaPaxZGrkUjK1+q+STuUWjH4r5wjGNXtNkhcQcSifDWPa" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@pkmn/dex@0.2.4/build/production.min.js" integrity="sha384-EUaQ+PXvUK01GaEr1qkm2O4wNjRMWDLyldIO14kOD6y0BCdyFcDrXgBc9mwTZxRS" crossorigin="anonymous"></script>
 
-  <script src="./data/pokedex.js"></script>
-  <script src="./data/learnsets.js"></script>
-  <script src="./data/moves.js"></script>
   <script>
     $(function() {
-      var dex = Object.keys(Pokedex).sort();
+      var dex = Object.keys(Dex.data.Species).sort();
       for (var i = 0; i < dex.length; i++) {
-        var pokemon = Pokedex[dex[i]];
+        var pokemon = Dex.getSpecies(dex[i]);
 
         // Filter Pokemon
         //////////////////
@@ -527,7 +526,7 @@
 
     $("#species").change(function() {
       var monName = $(this).children("option:selected").val().toLowerCase().replace(/[^a-z0-9]/g, "");
-      var pokemon = Pokedex[monName];
+      var pokemon = Dex.getSpecies(monName);
       if (monName && pokemon) {
         // Populate Abilities
         $("#ability").html("<option value=\" \">Select one...</option>");
@@ -537,16 +536,18 @@
         }
 
         // Populate Moves
-        for (var i = 1; i < 5; i++) {
-          $("#move" + i).html("<option value=\" \">(No Move)</option>");
-          var set = Object.keys(Learnsets[monName].learnset);
-          for (var j = 0; j < set.length; j++) {
-            var move = Moves[set[j]].name;
-            // Filter out CAP moves
-            if (move.isNonstandard && move.isNonstandard === "CAP") continue;
-            $("#move" + i).append("<option id=\"move" + i + "-" + move.split(" ").join("_") + "\" value=\"" + move + "\">" + move + "</option>");
+        Dex.getLearnset(monName).then(function (learnset) {
+          var set = Object.keys(learnset.learnset);
+          for (var i = 1; i <= 4; i++) {
+            $("#move" + i).html("<option value=\" \">(No Move)</option>");
+            for (var j = 0; j < set.length; j++) {
+              var move = Dex.getMove(set[j]).name;
+              // Filter out CAP moves
+              if (move.isNonstandard && move.isNonstandard === "CAP") continue;
+              $("#move" + i).append("<option id=\"move" + i + "-" + move.split(" ").join("_") + "\" value=\"" + move + "\">" + move + "</option>");
+            }
           }
-        }
+        });
 
         // Populate Gender
         if (pokemon.gender) {
