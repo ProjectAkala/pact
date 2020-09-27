@@ -536,7 +536,7 @@
         }
 
         // Populate Moves
-        Dex.getLearnset(monName).then(function (learnset) {
+        Dex.getLearnset(monName).then(function(learnset) {
           var set = Object.keys(learnset.learnset);
           for (var i = 1; i <= 4; i++) {
             $("#move" + i).html("<option value=\" \">(No Move)</option>");
@@ -603,48 +603,51 @@
       }
     });
 
-    window.m1d = "";
+    var disabledMoves = {
+      m1: "",
+      m2: "",
+      m3: "",
+      m4: "",
+    };
+
     $("#move1").change(function() {
-      $("#move2-" + window.m1d).prop("disabled", false);
-      $("#move3-" + window.m1d).prop("disabled", false);
-      $("#move4-" + window.m1d).prop("disabled", false);
-      window.m1d = this.value.split(" ").join("_");
-      $("#move2-" + window.m1d).prop("disabled", true);
-      $("#move3-" + window.m1d).prop("disabled", true);
-      $("#move4-" + window.m1d).prop("disabled", true);
+      $("#move2-" + disabledMoves.m1).prop("disabled", false);
+      $("#move3-" + disabledMoves.m1).prop("disabled", false);
+      $("#move4-" + disabledMoves.m1).prop("disabled", false);
+      disabledMoves.m1 = this.value.split(" ").join("_");
+      $("#move2-" + disabledMoves.m1).prop("disabled", true);
+      $("#move3-" + disabledMoves.m1).prop("disabled", true);
+      $("#move4-" + disabledMoves.m1).prop("disabled", true);
     });
 
-    window.m2d = "";
     $("#move2").change(function() {
-      $("#move1-" + window.m2d).prop("disabled", false);
-      $("#move3-" + window.m2d).prop("disabled", false);
-      $("#move4-" + window.m2d).prop("disabled", false);
-      window.m2d = this.value.split(" ").join("_");
-      $("#move1-" + window.m2d).prop("disabled", true);
-      $("#move3-" + window.m2d).prop("disabled", true);
-      $("#move4-" + window.m2d).prop("disabled", true);
+      $("#move1-" + disabledMoves.m2).prop("disabled", false);
+      $("#move3-" + disabledMoves.m2).prop("disabled", false);
+      $("#move4-" + disabledMoves.m2).prop("disabled", false);
+      disabledMoves.m2 = this.value.split(" ").join("_");
+      $("#move1-" + disabledMoves.m2).prop("disabled", true);
+      $("#move3-" + disabledMoves.m2).prop("disabled", true);
+      $("#move4-" + disabledMoves.m2).prop("disabled", true);
     });
 
-    window.m3d = "";
     $("#move3").change(function() {
-      $("#move1-" + window.m3d).prop("disabled", false);
-      $("#move2-" + window.m3d).prop("disabled", false);
-      $("#move4-" + window.m3d).prop("disabled", false);
-      window.m3d = this.value.split(" ").join("_");
-      $("#move1-" + window.m3d).prop("disabled", true);
-      $("#move2-" + window.m3d).prop("disabled", true);
-      $("#move4-" + window.m3d).prop("disabled", true);
+      $("#move1-" + disabledMoves.m3).prop("disabled", false);
+      $("#move2-" + disabledMoves.m3).prop("disabled", false);
+      $("#move4-" + disabledMoves.m3).prop("disabled", false);
+      disabledMoves.m3 = this.value.split(" ").join("_");
+      $("#move1-" + disabledMoves.m3).prop("disabled", true);
+      $("#move2-" + disabledMoves.m3).prop("disabled", true);
+      $("#move4-" + disabledMoves.m3).prop("disabled", true);
     });
 
-    window.m4d = "";
     $("#move4").change(function() {
-      $("#move1-" + window.m4d).prop("disabled", false);
-      $("#move2-" + window.m4d).prop("disabled", false);
-      $("#move3-" + window.m4d).prop("disabled", false);
-      window.m4d = this.value.split(" ").join("_");
-      $("#move1-" + window.m4d).prop("disabled", true);
-      $("#move2-" + window.m4d).prop("disabled", true);
-      $("#move3-" + window.m4d).prop("disabled", true);
+      $("#move1-" + disabledMoves.m4).prop("disabled", false);
+      $("#move2-" + disabledMoves.m4).prop("disabled", false);
+      $("#move3-" + disabledMoves.m4).prop("disabled", false);
+      disabledMoves.m4 = this.value.split(" ").join("_");
+      $("#move1-" + disabledMoves.m4).prop("disabled", true);
+      $("#move2-" + disabledMoves.m4).prop("disabled", true);
+      $("#move3-" + disabledMoves.m4).prop("disabled", true);
     });
   </script>
 </body>
