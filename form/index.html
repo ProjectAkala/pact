@@ -17,12 +17,23 @@
   <div class="text-dark container" style="max-width: 700px;">
     <br />
     <form>
-      <!-- Species -->
       <div class="form-group">
-        <label for="species">Pok&eacute;mon Species</label>
-        <select class="form-control" id="species">
-          <option value=" ">Select one...</option>
-        </select>
+        <div class="row">
+          <!-- Species -->
+          <div class="col">
+            <label for="species">Pok&eacute;mon Species</label>
+            <select class="form-control" id="species">
+              <option value=" ">Select one...</option>
+            </select>
+          </div>
+          <!-- Forme -->
+          <div id="forme-container" class="col d-none">
+            <label for="forme">Pok&eacute;mon Forme</label>
+            <select class="form-control" id="formes">
+              <option value=" ">Select one...</option>
+            </select>
+          </div>
+        </div>
       </div>
 
       <!-- Shiny -->
@@ -121,7 +132,7 @@
 
       <!-- OT -->
       <div class="form-group">
-        <label for="ability">OT Name</label>
+        <label for="ot">OT Name</label>
         <input class="form-control" type="text" id="ot" placeholder="Ash (Case Sensitive)">
       </div>
 
@@ -245,7 +256,7 @@
 
       <!-- Level -->
       <div class="form-group">
-        <label for="nickname">Level</label>
+        <label for="level">Level</label>
         <input class="form-control" type="text" id="level" placeholder="Level" value="100">
       </div>
 
@@ -341,7 +352,7 @@
 
     <div class="w-100 pt-3 d-none" id="prompt">Please copy ALL of the output below and paste it in #requests.</div>
     <br />
-    <textarea class="form-control d-none" id="result" rows="7" cols="60"></textarea><br>
+    <textarea class="form-control d-none" id="result" rows="7" cols="60" style="font-family: monospace"></textarea><br>
 
   </div>
 
@@ -349,6 +360,8 @@
     function submit() {
       var speciesSelect = document.getElementById("species");
       var species = speciesSelect[speciesSelect.selectedIndex].value;
+      var formeSelect = document.getElementById("formes");
+      var forme = formeSelect[formeSelect.selectedIndex].value;
       var ballSelect = document.getElementById("ball");
       var ball = ballSelect[ballSelect.selectedIndex].value;
       var natureSelect = document.getElementById("nature");
@@ -387,7 +400,9 @@
 
       var problems = [];
 
-      if (species == " ") {
+      if (formeSelect.options.length >= 2 && forme === " ") {
+        problems.push("Forme can't be empty!");
+      } else if (species == " ") {
         problems.push("Species can't be empty!");
       }
 
@@ -443,7 +458,11 @@
         problems.push("History can't be empty!");
       }
 
-      if (problems.length) return alert("There " + (problems.length === 1 ? "was a problem " : "were problems ") + "with the form:\n - " + problems.join("\n - ") + "\n\nPlease fix these issues and try resubmitting.");
+      if (problems.length) {
+        $("#prompt").addClass("d-none");
+        $("#result").addClass("d-none");
+        return alert("There " + (problems.length === 1 ? "was a problem " : "were problems ") + "with the form:\n - " + problems.join("\n - ") + "\n\nPlease fix these issues and try resubmitting.");
+      }
 
       result.value = "";
 
@@ -457,7 +476,7 @@
         result.value += "\u{25A0} - ";
       }
 
-      result.value += species + " (" + gender + ")" + "\n";
+      result.value += (forme !== " " ? forme : species) + " (" + gender + ")" + "\n";
       result.value += "```\n";
       result.value += "Pokeball:      " + ball + "\n";
       result.value += "Nature:        " + nature + "\n";
@@ -505,8 +524,9 @@
   <script src="https://unpkg.com/@pkmn/dex@0.2.4/build/production.min.js" integrity="sha384-EUaQ+PXvUK01GaEr1qkm2O4wNjRMWDLyldIO14kOD6y0BCdyFcDrXgBc9mwTZxRS" crossorigin="anonymous"></script>
 
   <script>
+    var dex = Object.keys(Dex.data.Species).sort();
+
     $(function() {
-      var dex = Object.keys(Dex.data.Species).sort();
       for (var i = 0; i < dex.length; i++) {
         var pokemon = Dex.getSpecies(dex[i]);
 
@@ -549,6 +569,29 @@
           }
         });
 
+        // Populate formes
+        var altFormes = [];
+        var formeBlacklist = ["-Mega", "-Mega-Y", "-Mega-X", "-Blade", "-Neutral", "-Ultra", "-White", "-Black", "-Dawn-Wings", "-Dusk-Mane", "-Pirouette"];
+        $("#formes").html("<option value=\" \">Select one...</option>");
+        for (var i = 0; i < dex.length; i++) {
+          var species = Dex.getSpecies(dex[i]);
+          if (species.baseSpecies === pokemon.name) {
+            var addForme = true;
+            for (var f of formeBlacklist) {
+              if (species.name === species.baseSpecies + f) addForme = false;
+            }
+            if (addForme) altFormes.push(species.name);
+          }
+        }
+        if (altFormes.length >= 2) {
+          $("#forme-container").removeClass("d-none");
+        } else {
+          $("#forme-container").addClass("d-none");
+        }
+        for (var i = 0; i < altFormes.length; i++) {
+          $("#formes").append("<option value=\"" + altFormes[i] + "\">" + altFormes[i] + "</option>");
+        }
+
         // Populate Gender
         if (pokemon.gender) {
           if (pokemon.gender === "F") {
@@ -565,6 +608,61 @@
         }
       } else {
         // Reset fields
+        $("#formes").html("<option value=\" \">Select one...</option>");
+        $("#forme-container").addClass("d-none");
+        $("#ability").html("<option value=\" \">Select one...</option>");
+        $("#gender").html("<option value=\" \">Select One...</option><option value=\"F\">Female (&#x2640;)</option><option value=\"M\">Male (&#x2642;)</option><option value=\"-\">Genderless</option>");
+        for (var i = 1; i < 5; i++) {
+          $("#move" + i).html("<option value=\" \">(No Move)</option>");
+        }
+      }
+    });
+
+    $("#formes").change(function() {
+      var monName = $(this).children("option:selected").val().toLowerCase().replace(/[^a-z0-9]/g, "");
+      var pokemon = Dex.getSpecies(monName);
+      if (monName && pokemon) {
+        // Populate Abilities
+        $("#ability").html("<option value=\" \">Select one...</option>");
+        var abilities = Object.values(pokemon.abilities);
+        for (var i = 0; i < abilities.length; i++) {
+          $("#ability").append("<option value=\"" + abilities[i] + "\">" + abilities[i] + "</option>");
+        }
+
+        // Populate Moves
+        Dex.getLearnset(monName).then(function(learnset) {
+          if (learnset.learnset) {
+            var set = Object.keys(learnset.learnset);
+            for (var i = 1; i <= 4; i++) {
+              $("#move" + i).html("<option value=\" \">(No Move)</option>");
+              for (var j = 0; j < set.length; j++) {
+                var move = Dex.getMove(set[j]).name;
+                // Filter out CAP moves
+                if (move.isNonstandard && move.isNonstandard === "CAP") continue;
+                $("#move" + i).append("<option id=\"move" + i + "-" + move.split(" ").join("_") + "\" value=\"" + move + "\">" + move + "</option>");
+              }
+            }
+          }
+        });
+
+        // Populate Gender
+        if (pokemon.gender) {
+          if (pokemon.gender === "F") {
+            $("#gender").html("<option value=\" \">Select One...</option><option value=\"F\">Female (&#x2640;)</option>");
+          } else if (pokemon.gender === "M") {
+            $("#gender").html("<option value=\" \">Select One...</option><option value=\"M\">Male (&#x2642;)</option>");
+          } else if (pokemon.gender === "N") {
+            $("#gender").html("<option value=\" \">Select One...</option><option value=\"-\">Genderless</option>");
+          } else {
+            $("#gender").html("<option value=\" \">Select One...</option><option value=\"F\">Female (&#x2640;)</option><option value=\"M\">Male (&#x2642;)</option><option value=\"-\">Genderless</option>");
+          }
+        } else {
+          $("#gender").html("<option value=\" \">Select One...</option><option value=\"F\">Female (&#x2640;)</option><option value=\"M\">Male (&#x2642;)</option><option value=\"-\">Genderless</option>");
+        }
+      } else {
+        // Reset fields
+        $("#formes").html("<option value=\" \">Select one...</option>");
+        $("#forme-container").addClass("d-none");
         $("#ability").html("<option value=\" \">Select one...</option>");
         $("#gender").html("<option value=\" \">Select One...</option><option value=\"F\">Female (&#x2640;)</option><option value=\"M\">Male (&#x2642;)</option><option value=\"-\">Genderless</option>");
         for (var i = 1; i < 5; i++) {
