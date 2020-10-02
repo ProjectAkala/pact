@@ -546,8 +546,8 @@
 
         // Alt formes
         if (pokemon.baseSpecies && pokemon.baseSpecies !== pokemon.name) continue;
-        // CAP
-        if (pokemon.num < 0) continue;
+        // CAP + MissingNo.
+        if (pokemon.num <= 0) continue;
 
         // Passes filter, add to species select
         $("#species").append("<option value=\"" + pokemon.name + "\">" + pokemon.name + "</option>");
