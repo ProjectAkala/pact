@@ -762,6 +762,14 @@
       $("#move2-" + disabledMoves.m4).prop("disabled", true);
       $("#move3-" + disabledMoves.m4).prop("disabled", true);
     });
+    
+    $("#species, #forme, #ball, #nature, #ability, #ot, #tid, #hp, #atk, #def, #spa, #spd, #spe, #language, #level, #gender, #origin, #move1, #encounter, #previous").focusout(function() {
+      if (this.value === " " || this.value === "") {
+        $(this).parent().addClass("alert alert-warning");
+      } else {
+        $(this).parent().removeClass("alert alert-warning");
+      }
+    });
   </script>
 </body>
 
