@@ -8,352 +8,363 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
 
-<body class="bg-light">
 
-  <div class="bg-dark title sticky-top">
-    <h1 class="text-light text-center pt-3 pb-3">P.A.C.T. Form</h1>
+<body class="bg-light">
+  <div id="loader" class="text-center text-dark position-absolute" style="top: 40%; width: 100%;">
+    <div class="spinner-border" role="status" style="width: 8vmax; height: 8vmax;">
+      <span class="sr-only">Loading...</span>
+    </div>
+    <br />
+    <br />
+    <strong>Loading...</strong>
   </div>
 
-  <div class="text-dark container" style="max-width: 700px;">
-    <br />
-    <form>
-      <div class="form-group">
-        <div class="row">
-          <!-- Species -->
-          <div class="col">
-            <label for="species">Pok&eacute;mon Species</label>
-            <select class="form-control" id="species">
-              <option value=" ">Select one...</option>
-            </select>
-          </div>
-          <!-- Forme -->
-          <div id="forme-container" class="col d-none">
-            <label for="forme">Pok&eacute;mon Forme</label>
-            <select class="form-control" id="formes">
-              <option value=" ">Select one...</option>
-            </select>
-          </div>
-        </div>
-      </div>
+  <div id="content" class="d-none">
+    <div class="bg-dark title sticky-top">
+      <h1 class="text-light text-center pt-3 pb-3">P.A.C.T. Form</h1>
+    </div>
 
-      <!-- Shiny -->
-      <div class="form-group">
-        <label for="shiny-radio-container">Shiny?</label>
-        <div id="shiny-radio-container">
-          <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" id="nonShiny" name="shinyRadioButton" class="custom-control-input" checked="true">
-            <label class="custom-control-label" for="nonShiny">Not Shiny</label>
-          </div>
-          <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" id="starShiny" name="shinyRadioButton" class="custom-control-input">
-            <label class="custom-control-label" for="starShiny">&#x2605; Star Shiny</label>
-          </div>
-          <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" id="squareShiny" name="shinyRadioButton" class="custom-control-input">
-            <label class="custom-control-label" for="squareShiny">&#x25A0; Square Shiny</label>
+    <div class="text-dark container" style="max-width: 700px;">
+      <br />
+      <form>
+        <div class="form-group">
+          <div class="row">
+            <!-- Species -->
+            <div class="col">
+              <label for="species">Pok&eacute;mon Species</label>
+              <select class="form-control" id="species">
+                <option value=" ">Select one...</option>
+              </select>
+            </div>
+            <!-- Forme -->
+            <div id="forme-container" class="col d-none">
+              <label for="formes">Pok&eacute;mon Forme</label>
+              <select class="form-control" id="formes">
+                <option value=" ">Select one...</option>
+              </select>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- Ball -->
-      <div class="form-group">
-        <label for="ball">Pok&eacute;ball</label>
-        <select class="form-control" id="ball">
-          <option value=" ">Select one...</option>
-          <option value="Beast">Beast</option>
-          <option value="Cherish">Cherish</option>
-          <option value="Dive">Dive</option>
-          <option value="Dream">Dream</option>
-          <option value="Dusk">Dusk</option>
-          <option value="Fast">Fast</option>
-          <option value="Friend">Friend</option>
-          <option value="Great">Great</option>
-          <option value="Heal">Heal</option>
-          <option value="Heavy">Heavy</option>
-          <option value="Level">Level</option>
-          <option value="Love">Love</option>
-          <option value="Lure">Lure</option>
-          <option value="Luxury">Luxury</option>
-          <option value="Master">Master</option>
-          <option value="Moon">Moon</option>
-          <option value="Nest">Nest</option>
-          <option value="Net">Net</option>
-          <option value="Poke">Pok&eacute;</option>
-          <option value="Premier">Premier</option>
-          <option value="Quick">Quick</option>
-          <option value="Repeat">Repeat</option>
-          <option value="Safari">Safari</option>
-          <option value="Sport">Sport</option>
-          <option value="Timer">Timer</option>
-          <option value="Ultra">Ultra</option>
-        </select>
-      </div>
-
-      <!-- Nature -->
-      <div class="form-group">
-        <label for="nature">Nature</label>
-        <select class="form-control" id="nature">
-          <option value=" ">Select one...</option>
-          <option value="Hardy">Hardy</option>
-          <option value="Lonely">Lonely</option>
-          <option value="Brave">Brave</option>
-          <option value="Adamant">Adamant</option>
-          <option value="Naughty">Naughty</option>
-          <option value="Bold">Bold</option>
-          <option value="Docile">Docile</option>
-          <option value="Relaxed">Relaxed</option>
-          <option value="Impish">Impish</option>
-          <option value="Lax">Lax</option>
-          <option value="Timid">Timid</option>
-          <option value="Hasty">Hasty</option>
-          <option value="Serious">Serious</option>
-          <option value="Jolly">Jolly</option>
-          <option value="Naive">Naive</option>
-          <option value="Modest">Modest</option>
-          <option value="Mild">Mild</option>
-          <option value="Quiet">Quiet</option>
-          <option value="Bashful">Bashful</option>
-          <option value="Rash">Rash</option>
-          <option value="Calm">Calm</option>
-          <option value="Gentle">Gentle</option>
-          <option value="Sassy">Sassy</option>
-          <option value="Careful">Careful</option>
-          <option value="Quirky">Quirky</option>
-        </select>
-      </div>
-
-      <!-- Ability -->
-      <div class="form-group">
-        <label for="ability">Ability</label>
-        <select class="form-control" id="ability">
-          <option value=" ">Select one...</option>
-        </select>
-      </div>
-
-      <!-- OT -->
-      <div class="form-group">
-        <label for="ot">OT Name</label>
-        <input class="form-control" type="text" id="ot" placeholder="Ash (Case Sensitive)">
-      </div>
-
-      <!-- TID -->
-      <div class="form-group">
-        <label for="tid">Trainer ID</label>
-        <input class="form-control" type="text" id="tid" placeholder="123456">
-      </div>
-
-      <!-- IVs -->
-      <div class="form-group">
-        <div class="form-row">
-          <div class="col">
-            <label for="hp">HP IV</label>
-            <select class="form-control" id="hp">
-              <option value=" ">-</option>
-              <option value="HT">Hyper Trained</option>
-              <option value="B">Best</option>
-              <option value="F">Fantastic</option>
-              <option value="VG">Very Good</option>
-              <option value="PG">Pretty Good</option>
-              <option value="D">Decent</option>
-              <option value="NG">No Good</option>
-            </select>
-          </div>
-          <div class="col">
-            <label for="atk">Atk IV</label>
-            <select class="form-control" id="atk">
-              <option value=" ">-</option>
-              <option value="HT">Hyper Trained</option>
-              <option value="B">Best</option>
-              <option value="F">Fantastic</option>
-              <option value="VG">Very Good</option>
-              <option value="PG">Pretty Good</option>
-              <option value="D">Decent</option>
-              <option value="NG">No Good</option>
-            </select>
-          </div>
-          <div class="col">
-            <label for="def">Def IV</label>
-            <select class="form-control" id="def">
-              <option value=" ">-</option>
-              <option value="HT">Hyper Trained</option>
-              <option value="B">Best</option>
-              <option value="F">Fantastic</option>
-              <option value="VG">Very Good</option>
-              <option value="PG">Pretty Good</option>
-              <option value="D">Decent</option>
-              <option value="NG">No Good</option>
-            </select>
-          </div>
-          <div class="col">
-            <label for="spa"><span class="d-block d-sm-block d-md-none">Sp Atk</span><span class="d-none d-md-block d-lg-block d-xl-block">Sp. Atk IV</span></label>
-            <select class="form-control" id="spa">
-              <option value=" ">-</option>
-              <option value="HT">Hyper Trained</option>
-              <option value="B">Best</option>
-              <option value="F">Fantastic</option>
-              <option value="VG">Very Good</option>
-              <option value="PG">Pretty Good</option>
-              <option value="D">Decent</option>
-              <option value="NG">No Good</option>
-            </select>
-          </div>
-          <div class="col">
-            <label for="spd"><span class="d-block d-sm-block d-md-none">Sp Def</span><span class="d-none d-md-block d-lg-block d-xl-block">Sp. Def IV</span></label>
-            <select class="form-control" id="spd">
-              <option value=" ">-</option>
-              <option value="HT">Hyper Trained</option>
-              <option value="B">Best</option>
-              <option value="F">Fantastic</option>
-              <option value="VG">Very Good</option>
-              <option value="PG">Pretty Good</option>
-              <option value="D">Decent</option>
-              <option value="NG">No Good</option>
-            </select>
-          </div>
-          <div class="col">
-            <label for="spe">Spe IV</label>
-            <select class="form-control" id="spe">
-              <option value=" ">-</option>
-              <option value="HT">Hyper Trained</option>
-              <option value="B">Best</option>
-              <option value="F">Fantastic</option>
-              <option value="VG">Very Good</option>
-              <option value="PG">Pretty Good</option>
-              <option value="D">Decent</option>
-              <option value="NG">No Good</option>
-            </select>
+        <!-- Shiny -->
+        <div class="form-group">
+          <label for="shiny-radio-container">Shiny?</label>
+          <div id="shiny-radio-container">
+            <div class="custom-control custom-radio custom-control-inline">
+              <input type="radio" id="nonShiny" name="shinyRadioButton" class="custom-control-input" checked="true">
+              <label class="custom-control-label" for="nonShiny">Not Shiny</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+              <input type="radio" id="starShiny" name="shinyRadioButton" class="custom-control-input">
+              <label class="custom-control-label" for="starShiny">&#x2605; Star Shiny</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+              <input type="radio" id="squareShiny" name="shinyRadioButton" class="custom-control-input">
+              <label class="custom-control-label" for="squareShiny">&#x25A0; Square Shiny</label>
+            </div>
           </div>
         </div>
-        <small id="ivDesc" class="form-text text-muted">
-          These descriptions can be found using the Judge feature in your PC.</br>
-          31: Best | 30: Fantastic | 26-29: Very Good | 16-25: Pretty Good | 1-15: Decent | 0: No Good
-        </small>
-      </div>
 
-      <!-- Language -->
-      <div class="form-group">
-        <label for="language">Language</label>
-        <select class="form-control" id="language">
-          <option value=" ">Select one...</option>
-          <option value="ENG">ENG</option>
-          <option value="SPA">SPA</option>
-          <option value="JPN">JPN</option>
-          <option value="FRE">FRE</option>
-          <option value="GER">GER</option>
-          <option value="ITA">ITA</option>
-          <option value="KOR">KOR</option>
-          <option value="CHS">CHS</option>
-          <option value="CHT">CHT</option>
-        </select>
-      </div>
-
-      <!-- Nickname -->
-      <div class="form-group">
-        <label for="nickname">Nickname</label>
-        <input class="form-control" type="text" id="nickname" placeholder="Agumon (Case Sensitive)">
-        <small id="nickDesc" class="form-text text-muted">Please leave this blank if it doesn't have one!</small>
-      </div>
-
-      <!-- Level -->
-      <div class="form-group">
-        <label for="level">Level</label>
-        <input class="form-control" type="text" id="level" placeholder="Level" value="100">
-      </div>
-
-      <!-- Gender -->
-      <div class="form-group">
-        <label for="gender">Gender</label>
-        <select class="form-control" id="gender">
-          <option value=" ">Select One...</option>
-          <option value="M">Male (&#x2642;)</option>
-          <option value="F">Female (&#x2640;)</option>
-          <option value="-">Genderless</option>
-        </select>
-      </div>
-
-      <!-- Origin -->
-      <div class="form-group">
-        <label for="origin">Origin Stamp</label>
-        <select class="form-control" id="origin">
-          <option value=" ">Select one...</option>
-          <option value="Galar">Galar</option>
-          <option value="LGPE">LGPE</option>
-          <option value="PoGo">PoGo</option>
-          <option value="Alola">Alola</option>
-          <option value="Gen 6">Gen 6 Pentagon</option>
-          <option value="VC">VC</option>
-          <option value="None">None</option>
-        </select>
-        <small id="origin-stamp-list" class="form-text text-muted">
-          Galar: <img alt="Galar" src="//cdn.bulbagarden.net/upload/thumb/3/3e/Galar_symbol.png/16px-Galar_symbol.png" width="16" height="16" srcset="//cdn.bulbagarden.net/upload/thumb/3/3e/Galar_symbol.png/24px-Galar_symbol.png 1.5x, //cdn.bulbagarden.net/upload/thumb/3/3e/Galar_symbol.png/32px-Galar_symbol.png 2x">
-          | LGPE: <img alt="Let's Go" src="//cdn.bulbagarden.net/upload/thumb/a/a4/Let%27s_Go_icon.png/16px-Let%27s_Go_icon.png" width="16" height="16" srcset="//cdn.bulbagarden.net/upload/thumb/a/a4/Let%27s_Go_icon.png/24px-Let%27s_Go_icon.png 1.5x, //cdn.bulbagarden.net/upload/thumb/a/a4/Let%27s_Go_icon.png/32px-Let%27s_Go_icon.png 2x">
-          | PoGo: <img alt="PoGo" src="//cdn.bulbagarden.net/upload/thumb/2/2e/GO_icon_VIII.png/16px-GO_icon_VIII.png" width="16" height="16" srcset="//cdn.bulbagarden.net/upload/thumb/2/2e/GO_icon_VIII.png/24px-GO_icon_VIII.png 1.5x, //cdn.bulbagarden.net/upload/thumb/2/2e/GO_icon_VIII.png/32px-GO_icon_VIII.png 2x">
-          | Alola: <img alt="Alola" src="//cdn.bulbagarden.net/upload/thumb/c/c3/Black_clover_VIII.png/16px-Black_clover_VIII.png" width="16" height="16" srcset="//cdn.bulbagarden.net/upload/thumb/c/c3/Black_clover_VIII.png/24px-Black_clover_VIII.png 1.5x, //cdn.bulbagarden.net/upload/thumb/c/c3/Black_clover_VIII.png/32px-Black_clover_VIII.png 2x">
-          | Gen 6: <img alt="Gen 6 Pentagon" src="//cdn.bulbagarden.net/upload/thumb/1/1b/Blue_pentagon_VIII.png/16px-Blue_pentagon_VIII.png" width="16" height="16" srcset="//cdn.bulbagarden.net/upload/thumb/1/1b/Blue_pentagon_VIII.png/24px-Blue_pentagon_VIII.png 1.5x, //cdn.bulbagarden.net/upload/thumb/1/1b/Blue_pentagon_VIII.png/32px-Blue_pentagon_VIII.png 2x">
-          | VC: <img alt="VC" src="//cdn.bulbagarden.net/upload/thumb/a/a4/GB_icon_VIII.png/16px-GB_icon_VIII.png" width="16" height="16" srcset="//cdn.bulbagarden.net/upload/thumb/a/a4/GB_icon_VIII.png/24px-GB_icon_VIII.png 1.5x, //cdn.bulbagarden.net/upload/thumb/a/a4/GB_icon_VIII.png/32px-GB_icon_VIII.png 2x">
-        </small>
-      </div>
-
-      <!-- Moves -->
-      <div class="form-group">
-        <div class="form-row">
-          <div class="col">
-            <label for="move1">Move 1</label>
-            <select class="form-control" id="move1">
-              <option value=" ">(No move)</option>
-            </select>
-          </div>
-          <div class="col">
-            <label for="move2">Move 2</label>
-            <select class="form-control" id="move2">
-              <option value=" ">(No move)</option>
-            </select>
-          </div>
-          <div class="col">
-            <label for="move3">Move 3</label>
-            <select class="form-control" id="move3">
-              <option value=" ">(No move)</option>
-            </select>
-          </div>
-          <div class="col">
-            <label for="move4">Move 4</label>
-            <select class="form-control" id="move4">
-              <option value=" ">(No move)</option>
-            </select>
-          </div>
+        <!-- Ball -->
+        <div class="form-group">
+          <label for="ball">Pok&eacute;ball</label>
+          <select class="form-control" id="ball">
+            <option value=" ">Select one...</option>
+            <option value="Beast">Beast</option>
+            <option value="Cherish">Cherish</option>
+            <option value="Dive">Dive</option>
+            <option value="Dream">Dream</option>
+            <option value="Dusk">Dusk</option>
+            <option value="Fast">Fast</option>
+            <option value="Friend">Friend</option>
+            <option value="Great">Great</option>
+            <option value="Heal">Heal</option>
+            <option value="Heavy">Heavy</option>
+            <option value="Level">Level</option>
+            <option value="Love">Love</option>
+            <option value="Lure">Lure</option>
+            <option value="Luxury">Luxury</option>
+            <option value="Master">Master</option>
+            <option value="Moon">Moon</option>
+            <option value="Nest">Nest</option>
+            <option value="Net">Net</option>
+            <option value="Pok&eacute;">Pok&eacute;</option>
+            <option value="Premier">Premier</option>
+            <option value="Quick">Quick</option>
+            <option value="Repeat">Repeat</option>
+            <option value="Safari">Safari</option>
+            <option value="Sport">Sport</option>
+            <option value="Timer">Timer</option>
+            <option value="Ultra">Ultra</option>
+          </select>
         </div>
-        <small id="movesDesc" class="form-text text-muted">Please list the moves on your Pok&eacute;mon.</small>
-      </div>
 
-      <!-- Ribbons/Marks -->
-      <div class="form-group">
-        <label for="ribmark">Ribbons &amp; Marks</label>
-        <input class="form-control" type="text" id="ribmark" placeholder="Ribbon/Mark Name">
-        <small id="ribbonDesc" class="form-text text-muted">Leave this blank if it doesn't have any!</small>
-      </div>
+        <!-- Nature -->
+        <div class="form-group">
+          <label for="nature">Nature</label>
+          <select class="form-control" id="nature">
+            <option value=" ">Select one...</option>
+            <option value="Hardy">Hardy</option>
+            <option value="Lonely">Lonely</option>
+            <option value="Brave">Brave</option>
+            <option value="Adamant">Adamant</option>
+            <option value="Naughty">Naughty</option>
+            <option value="Bold">Bold</option>
+            <option value="Docile">Docile</option>
+            <option value="Relaxed">Relaxed</option>
+            <option value="Impish">Impish</option>
+            <option value="Lax">Lax</option>
+            <option value="Timid">Timid</option>
+            <option value="Hasty">Hasty</option>
+            <option value="Serious">Serious</option>
+            <option value="Jolly">Jolly</option>
+            <option value="Naive">Naive</option>
+            <option value="Modest">Modest</option>
+            <option value="Mild">Mild</option>
+            <option value="Quiet">Quiet</option>
+            <option value="Bashful">Bashful</option>
+            <option value="Rash">Rash</option>
+            <option value="Calm">Calm</option>
+            <option value="Gentle">Gentle</option>
+            <option value="Sassy">Sassy</option>
+            <option value="Careful">Careful</option>
+            <option value="Quirky">Quirky</option>
+          </select>
+        </div>
 
-      <!-- Encounter Description -->
-      <div class="form-group">
-        <label for="encounter">Encounter Description</label>
-        <textarea class="form-control" id="encounter" rows="4"></textarea>
-        <small id="encounterDesc" class="form-text text-muted">Please copy the text from the second-last page of your Pok&eacute;mon's summary in full.</small>
-      </div>
+        <!-- Ability -->
+        <div class="form-group">
+          <label for="ability">Ability</label>
+          <select class="form-control" id="ability">
+            <option value=" ">Select one...</option>
+          </select>
+        </div>
 
-      <!-- History -->
-      <div class="form-group">
-        <label for="previous">History</label>
-        <input class="form-control" type="text" id="previous" placeholder="Skadiv#6984 from the &quot;Akala Meadow&quot; Discord server">
-        <small id="historyDesc" class="form-text text-muted">What user did you get this Pok&eacute;mon from? State the method if you don't remember.</small>
-      </div>
-    </form>
-    <br>
+        <!-- OT -->
+        <div class="form-group">
+          <label for="ot">OT Name</label>
+          <input class="form-control" type="text" id="ot" placeholder="Ash (Case Sensitive)">
+        </div>
 
-    <button type="button" class="btn btn-outline-primary btn-block" onclick="submit()">Submit</button>
+        <!-- TID -->
+        <div class="form-group">
+          <label for="tid">Trainer ID</label>
+          <input class="form-control" type="text" id="tid" placeholder="123456">
+        </div>
 
-    <div class="w-100 pt-3 d-none" id="prompt">Please copy ALL of the output below and paste it in #requests.</div>
-    <br />
-    <textarea class="form-control d-none" id="result" rows="7" cols="60" style="font-family: monospace"></textarea><br>
+        <!-- IVs -->
+        <div class="form-group">
+          <div class="form-row">
+            <div class="col">
+              <label for="hp">HP IV</label>
+              <select class="form-control" id="hp">
+                <option value=" ">-</option>
+                <option value="HT">Hyper Trained</option>
+                <option value="B">Best</option>
+                <option value="F">Fantastic</option>
+                <option value="VG">Very Good</option>
+                <option value="PG">Pretty Good</option>
+                <option value="D">Decent</option>
+                <option value="NG">No Good</option>
+              </select>
+            </div>
+            <div class="col">
+              <label for="atk">Atk IV</label>
+              <select class="form-control" id="atk">
+                <option value=" ">-</option>
+                <option value="HT">Hyper Trained</option>
+                <option value="B">Best</option>
+                <option value="F">Fantastic</option>
+                <option value="VG">Very Good</option>
+                <option value="PG">Pretty Good</option>
+                <option value="D">Decent</option>
+                <option value="NG">No Good</option>
+              </select>
+            </div>
+            <div class="col">
+              <label for="def">Def IV</label>
+              <select class="form-control" id="def">
+                <option value=" ">-</option>
+                <option value="HT">Hyper Trained</option>
+                <option value="B">Best</option>
+                <option value="F">Fantastic</option>
+                <option value="VG">Very Good</option>
+                <option value="PG">Pretty Good</option>
+                <option value="D">Decent</option>
+                <option value="NG">No Good</option>
+              </select>
+            </div>
+            <div class="col">
+              <label for="spa"><span class="d-block d-sm-block d-md-none">Sp Atk</span><span class="d-none d-md-block d-lg-block d-xl-block">Sp. Atk IV</span></label>
+              <select class="form-control" id="spa">
+                <option value=" ">-</option>
+                <option value="HT">Hyper Trained</option>
+                <option value="B">Best</option>
+                <option value="F">Fantastic</option>
+                <option value="VG">Very Good</option>
+                <option value="PG">Pretty Good</option>
+                <option value="D">Decent</option>
+                <option value="NG">No Good</option>
+              </select>
+            </div>
+            <div class="col">
+              <label for="spd"><span class="d-block d-sm-block d-md-none">Sp Def</span><span class="d-none d-md-block d-lg-block d-xl-block">Sp. Def IV</span></label>
+              <select class="form-control" id="spd">
+                <option value=" ">-</option>
+                <option value="HT">Hyper Trained</option>
+                <option value="B">Best</option>
+                <option value="F">Fantastic</option>
+                <option value="VG">Very Good</option>
+                <option value="PG">Pretty Good</option>
+                <option value="D">Decent</option>
+                <option value="NG">No Good</option>
+              </select>
+            </div>
+            <div class="col">
+              <label for="spe">Spe IV</label>
+              <select class="form-control" id="spe">
+                <option value=" ">-</option>
+                <option value="HT">Hyper Trained</option>
+                <option value="B">Best</option>
+                <option value="F">Fantastic</option>
+                <option value="VG">Very Good</option>
+                <option value="PG">Pretty Good</option>
+                <option value="D">Decent</option>
+                <option value="NG">No Good</option>
+              </select>
+            </div>
+          </div>
+          <small id="ivDesc" class="form-text text-muted">
+            These descriptions can be found using the Judge feature in your PC.<br />
+            31: Best | 30: Fantastic | 26-29: Very Good | 16-25: Pretty Good | 1-15: Decent | 0: No Good
+          </small>
+        </div>
 
+        <!-- Language -->
+        <div class="form-group">
+          <label for="language">Language</label>
+          <select class="form-control" id="language">
+            <option value=" ">Select one...</option>
+            <option value="ENG">ENG</option>
+            <option value="SPA">SPA</option>
+            <option value="JPN">JPN</option>
+            <option value="FRE">FRE</option>
+            <option value="GER">GER</option>
+            <option value="ITA">ITA</option>
+            <option value="KOR">KOR</option>
+            <option value="CHS">CHS</option>
+            <option value="CHT">CHT</option>
+          </select>
+        </div>
+
+        <!-- Nickname -->
+        <div class="form-group">
+          <label for="nickname">Nickname</label>
+          <input class="form-control" type="text" id="nickname" placeholder="Agumon (Case Sensitive)">
+          <small id="nickDesc" class="form-text text-muted">Please leave this blank if it doesn't have one!</small>
+        </div>
+
+        <!-- Level -->
+        <div class="form-group">
+          <label for="level">Level</label>
+          <input class="form-control" type="text" id="level" placeholder="Level" value="100">
+        </div>
+
+        <!-- Gender -->
+        <div class="form-group">
+          <label for="gender">Gender</label>
+          <select class="form-control" id="gender">
+            <option value=" ">Select One...</option>
+            <option value="M">Male (&#x2642;)</option>
+            <option value="F">Female (&#x2640;)</option>
+            <option value="-">Genderless</option>
+          </select>
+        </div>
+
+        <!-- Origin -->
+        <div class="form-group">
+          <label for="origin">Origin Stamp</label>
+          <select class="form-control" id="origin">
+            <option value=" ">Select one...</option>
+            <option value="Galar">Galar</option>
+            <option value="LGPE">LGPE</option>
+            <option value="PoGo">PoGo</option>
+            <option value="Alola">Alola</option>
+            <option value="Gen 6">Gen 6 Pentagon</option>
+            <option value="VC">VC</option>
+            <option value="None">None</option>
+          </select>
+          <small id="origin-stamp-list" class="form-text text-muted">
+            Galar: <img alt="Galar" src="//cdn.bulbagarden.net/upload/thumb/3/3e/Galar_symbol.png/16px-Galar_symbol.png" width="16" height="16" srcset="//cdn.bulbagarden.net/upload/thumb/3/3e/Galar_symbol.png/24px-Galar_symbol.png 1.5x, //cdn.bulbagarden.net/upload/thumb/3/3e/Galar_symbol.png/32px-Galar_symbol.png 2x">
+            | LGPE: <img alt="Let's Go" src="//cdn.bulbagarden.net/upload/thumb/a/a4/Let%27s_Go_icon.png/16px-Let%27s_Go_icon.png" width="16" height="16" srcset="//cdn.bulbagarden.net/upload/thumb/a/a4/Let%27s_Go_icon.png/24px-Let%27s_Go_icon.png 1.5x, //cdn.bulbagarden.net/upload/thumb/a/a4/Let%27s_Go_icon.png/32px-Let%27s_Go_icon.png 2x">
+            | PoGo: <img alt="PoGo" src="//cdn.bulbagarden.net/upload/thumb/2/2e/GO_icon_VIII.png/16px-GO_icon_VIII.png" width="16" height="16" srcset="//cdn.bulbagarden.net/upload/thumb/2/2e/GO_icon_VIII.png/24px-GO_icon_VIII.png 1.5x, //cdn.bulbagarden.net/upload/thumb/2/2e/GO_icon_VIII.png/32px-GO_icon_VIII.png 2x">
+            | Alola: <img alt="Alola" src="//cdn.bulbagarden.net/upload/thumb/c/c3/Black_clover_VIII.png/16px-Black_clover_VIII.png" width="16" height="16" srcset="//cdn.bulbagarden.net/upload/thumb/c/c3/Black_clover_VIII.png/24px-Black_clover_VIII.png 1.5x, //cdn.bulbagarden.net/upload/thumb/c/c3/Black_clover_VIII.png/32px-Black_clover_VIII.png 2x">
+            | Gen 6: <img alt="Gen 6 Pentagon" src="//cdn.bulbagarden.net/upload/thumb/1/1b/Blue_pentagon_VIII.png/16px-Blue_pentagon_VIII.png" width="16" height="16" srcset="//cdn.bulbagarden.net/upload/thumb/1/1b/Blue_pentagon_VIII.png/24px-Blue_pentagon_VIII.png 1.5x, //cdn.bulbagarden.net/upload/thumb/1/1b/Blue_pentagon_VIII.png/32px-Blue_pentagon_VIII.png 2x">
+            | VC: <img alt="VC" src="//cdn.bulbagarden.net/upload/thumb/a/a4/GB_icon_VIII.png/16px-GB_icon_VIII.png" width="16" height="16" srcset="//cdn.bulbagarden.net/upload/thumb/a/a4/GB_icon_VIII.png/24px-GB_icon_VIII.png 1.5x, //cdn.bulbagarden.net/upload/thumb/a/a4/GB_icon_VIII.png/32px-GB_icon_VIII.png 2x">
+          </small>
+        </div>
+
+        <!-- Moves -->
+        <div class="form-group">
+          <div class="form-row">
+            <div class="col">
+              <label for="move1">Move 1</label>
+              <select class="form-control" id="move1">
+                <option value=" ">(No move)</option>
+              </select>
+            </div>
+            <div class="col">
+              <label for="move2">Move 2</label>
+              <select class="form-control" id="move2">
+                <option value=" ">(No move)</option>
+              </select>
+            </div>
+            <div class="col">
+              <label for="move3">Move 3</label>
+              <select class="form-control" id="move3">
+                <option value=" ">(No move)</option>
+              </select>
+            </div>
+            <div class="col">
+              <label for="move4">Move 4</label>
+              <select class="form-control" id="move4">
+                <option value=" ">(No move)</option>
+              </select>
+            </div>
+          </div>
+          <small id="movesDesc" class="form-text text-muted">Please list the moves on your Pok&eacute;mon.</small>
+        </div>
+
+        <!-- Ribbons/Marks -->
+        <div class="form-group">
+          <label for="ribmark">Ribbons &amp; Marks</label>
+          <input class="form-control" type="text" id="ribmark" placeholder="Ribbon/Mark Name">
+          <small id="ribbonDesc" class="form-text text-muted">Leave this blank if it doesn't have any!</small>
+        </div>
+
+        <!-- Encounter Description -->
+        <div class="form-group">
+          <label for="encounter">Encounter Description</label>
+          <textarea class="form-control" id="encounter" rows="4"></textarea>
+          <small id="encounterDesc" class="form-text text-muted">Please copy the text from the second-last page of your Pok&eacute;mon's summary in full.</small>
+        </div>
+
+        <!-- History -->
+        <div class="form-group">
+          <label for="previous">History</label>
+          <input class="form-control" type="text" id="previous" placeholder="Skadiv#6984 from the &quot;Akala Meadow&quot; Discord server">
+          <small id="historyDesc" class="form-text text-muted">What user did you get this Pok&eacute;mon from? State the method if you don't remember.</small>
+        </div>
+      </form>
+      <br />
+
+      <button type="button" class="btn btn-outline-primary btn-block" onclick="submit()">Submit</button>
+
+      <div class="w-100 pt-3 d-none" id="prompt">Please copy ALL of the output below and paste it in #requests.</div>
+      <br />
+      <textarea class="form-control d-none" id="result" rows="7" cols="60" style="font-family: monospace"></textarea><br />
+
+    </div>
   </div>
 
   <script>
@@ -400,7 +411,7 @@
 
       var problems = [];
 
-      if (formeSelect.options.length >= 2 && forme === " ") {
+      if (formeSelect.options.length >= 3 && forme === " ") {
         problems.push("Forme can't be empty!");
       } else if (species == " ") {
         problems.push("Species can't be empty!");
@@ -478,7 +489,7 @@
 
       result.value += (forme !== " " ? forme : species) + " (" + gender + ")" + "\n";
       result.value += "```\n";
-      result.value += "Pokeball:      " + ball + "\n";
+      result.value += "Pok\u{00E9}ball:      " + ball + "\n";
       result.value += "Nature:        " + nature + "\n";
       result.value += "Ability:       " + ability + "\n";
       result.value += "OT:            " + ot + "\n";
@@ -542,6 +553,10 @@
         $("#species").append("<option value=\"" + pokemon.name + "\">" + pokemon.name + "</option>");
       }
       $("#species").change();
+
+      $("#content").removeClass("d-none");
+      $("#footer").removeClass("d-none");
+      $("#loader").addClass("d-none");
     });
 
     $("#species").change(function() {
@@ -750,7 +765,7 @@
   </script>
 </body>
 
-<footer class="text-dark container text-muted text-center pt-3 pb-3" style="max-width: 700px;">
+<footer id="footer" class="text-dark container text-muted text-center pt-3 pb-3 d-none" style="max-width: 700px;">
   <div><small>Site by <a href="https://github.com/Lusamine/pact/graphs/contributors">P.A.C.T.</a> modified with permission from original by <a href="https://github.com/Scorbunny">neycwang</a></small></div>
 </footer>
 
