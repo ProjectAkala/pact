@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="icon" href="../favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <title>Blacklist | P.A.C.T.</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <style>
+    thead th {
+      position: sticky;
+      top: -1px;
+    }
+  </style>
+</head>
+
+<body class="bg-light">
+  <div id="loader" class="text-center text-dark position-absolute" style="top: 40%; width: 100%;">
+    <div class="spinner-border" role="status" style="width: 8vmax; height: 8vmax;">
+      <span class="sr-only">Loading...</span>
+    </div>
+    <br />
+    <br />
+    <strong>Loading...</strong>
+    </br />
+    <span>If something goes wrong, head on over to <a href="https://spo.ink/pactbl">https://spo.ink/pactbl</a> to search manually!</span>
+  </div>
+
+  <div id="content" class="d-none">
+    <div class="bg-dark title sticky-top">
+      <h1 class="text-light text-center pt-3 pb-3">P.A.C.T. Blacklist</h1>
+    </div>
+
+    <div class="text-dark container text-center" style="max-width: 700px;">
+      <br />
+      <form>
+        <div class="form-row">
+          <div class="col">
+            <label for="ot-search">Search by OT Name</label>
+            <input type="text" id="ot-search" class="form-control">
+          </div>
+          <div class="col">
+            <label for="id-search">Search by ID Number</label>
+            <input type="text" id="id-search" class="form-control">
+          </div>
+        </div>
+        <br />
+        <div class="form-group">
+          <label id="result-label" for="results">Results</label>
+          <!--<textarea class="form-control" id="results" rows="10" style="resize: none" readonly></textarea>-->
+          <div class="table-container border" style="height: 240px; overflow: auto;">
+            <table class="table table-striped">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">OT Name</th>
+                  <th scope="col">ID No.</th>
+                  <th scope="col">Description</th>
+                  <th scope="col">Comments</th>
+                </tr>
+              </thead>
+              <tbody id="results">
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+  <script src="https://stuartk.com/gooss/gooss.js" integrity="sha384-1VF91YioCPENXbWXC5avL9Za3QoD8JOxXb5HXOSA2wkYHIyQwW6ZygvAXIAixsum" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/fuse.js@6.4.1/dist/fuse.js" integrity="sha384-U2HBuKzcVBmu3+scbSdB3/MI2tVE2A4MBPwrhUxfh74ICJ5pybEyBoz7nXsY5Po0" crossorigin="anonymous"></script>
+  <script>
+    var bl = [];
+    $(function() {
+      gooss.data({
+          Blacklist: {
+            url: "https://docs.google.com/spreadsheet/ccc?key=17ycX1S3Hhbu8IoGpnioDCbAtjVrLSY3fNWivRN8n37I",
+            index: 0,
+          },
+        },
+        function(err, data) {
+          if (err) return alert(err);
+          bl = data.Blacklist.sort(function(a, b) {
+            if (a.OT < b.OT) {
+              return -1;
+            }
+            if (a.OT > b.OT) {
+              return 1;
+            }
+            return 0;
+          });
+          $("#result-label").html("Results (" + bl.length + ")");
+          $("#loader").addClass("d-none");
+          $("#content").removeClass("d-none");
+          $("#footer").removeClass("d-none");
+          console.log(bl);
+          var $results = $("#results");
+          for (var entry of bl) {
+            $results.append(formatEntry(entry));
+          }
+        }
+      );
+    });
+
+    $("#id-search").keyup(function() {
+      var testArr = $(this).val().split("");
+      var resultArr = [];
+      var isNum = new RegExp("[0-9]+");
+      for (var i in testArr) {
+        if (isNum.test(testArr[i]) && i < 6) {
+          resultArr.push(testArr[i]);
+        }
+        $(this).val(resultArr.join(""));
+      }
+      var $results = $("#results");
+      $results.html("");
+      if ($(this).val().trim() === "") {
+        for (var entry of bl) {
+          $results.append(formatEntry(entry));
+        }
+        $("#ot-search").prop("disabled", false);
+        $("#result-label").html("Results (" + bl.length + ")");
+      } else {
+        $("#ot-search").prop("disabled", true);
+        $("#ot-search").html("");
+        var options = {
+          includeScore: true,
+          threshold: 0.3,
+          keys: [
+            "ID #s",
+          ]
+        };
+        var fuse = new Fuse(bl, options);
+        var search = fuse.search($(this).val());
+        for (var entry of bl) {
+          if (entry["ID #s"].includes("IDs")) search.push(entry);
+        }
+        var i = 0;
+        for (var result of search) {
+          if (result.item) {
+            if (!$("#results").html().includes(formatEntry(result.item))) {
+              $results.append(formatEntry(result.item));
+            }
+          } else {
+            if (!$("#results").html().includes(formatEntry(result))) {
+              $results.append(formatEntry(result));
+            }
+          }
+          i++;
+        }
+        $("#result-label").html("Results (" + i + ")");
+      }
+    });
+
+    $("#ot-search").keyup(function() {
+      var testArr = $(this).val().split("");
+      var resultArr = [];
+      for (var i in testArr) {
+        if (i < 12) {
+          resultArr.push(testArr[i]);
+        }
+        $(this).val(resultArr.join(""));
+      }
+      var $results = $("#results");
+      $results.html("");
+      if ($(this).val().trim() === "") {
+        for (var entry of bl) {
+          $results.append(formatEntry(entry));
+        }
+        $("#id-search").prop("disabled", false);
+        $("#result-label").html("Results (" + bl.length + ")");
+      } else {
+        $("#id-search").prop("disabled", true);
+        $("#id-search").html("");
+        var options = {
+          includeScore: true,
+          threshold: 0.3,
+          keys: [
+            "OT",
+          ]
+        };
+        var fuse = new Fuse(bl, options);
+        var search = fuse.search($(this).val());
+        for (var entry of bl) {
+          if (entry.OT.includes("Multiple")) search.push(entry);
+        }
+        var i = 0;
+        for (var result of search) {
+          if (result.item) {
+            if (!$("#results").html().includes(formatEntry(result.item))) {
+              $results.append(formatEntry(result.item));
+            }
+          } else {
+            if (!$("#results").html().includes(formatEntry(result))) {
+              $results.append(formatEntry(result));
+            }
+          }
+          i++;
+        }
+        $("#result-label").html("Results (" + i + ")");
+      }
+    });
+
+    function formatEntry(entry) {
+      return "<tr>" + "\n" +
+        "<th scope=\"row\">" + entry.OT + "</th>" + "\n" +
+        "<td>" + entry["ID #s"] + "</td>" + "\n" +
+        "<td>" + (entry["User tags / Comments"] ? entry["User tags / Comments"] : "&mdash;") + "</td>" + "\n" +
+        "<td>" + (entry["(+ all link/youtuber/twitch/ebay/etc. OTs)"] ? entry["(+ all link/youtuber/twitch/ebay/etc. OTs)"] : "&mdash;") + "</td>";
+    }
+  </script>
+</body>
+
+<footer id="footer" class="text-dark container text-muted text-center pt-3 pb-3 d-none" style="max-width: 700px;">
+  <div><small>Site by <a href="https://github.com/Lusamine/pact/graphs/contributors">P.A.C.T.</a> modified with permission from original by <a href="https://github.com/Scorbunny">neycwang</a></small>
+    <div><small>Data sourced from <a href="https://spo.ink/pactbl">https://spo.ink/pactbl</a> - Problem with the form? Head over there!</small></div>
+  </div>
+</footer>
+
+</html>

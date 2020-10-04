@@ -4,7 +4,7 @@
 <head>
   <link rel="icon" href="../favicon.ico" type="image/x-icon" />
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <title>Form | P.A.C.T</title>
+  <title>Form | P.A.C.T.</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
 
@@ -762,7 +762,7 @@
       $("#move2-" + disabledMoves.m4).prop("disabled", true);
       $("#move3-" + disabledMoves.m4).prop("disabled", true);
     });
-    
+
     $("#species, #forme, #ball, #nature, #ability, #ot, #tid, #hp, #atk, #def, #spa, #spd, #spe, #language, #level, #gender, #origin, #move1, #encounter, #previous").focusout(function() {
       if (this.value === " " || this.value === "") {
         $(this).parent().addClass("alert alert-warning");
