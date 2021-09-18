@@ -173,6 +173,7 @@
 
         // Add entries with "Multiple IDs" to results
         for (var entry of bl) {
+          if (!entry["ID #s"]) continue;
           if (entry["ID #s"].includes("IDs")) search.push(entry);
         }
 
@@ -229,6 +230,7 @@
 
         // Add entries with "Multiple OTs" to results
         for (var entry of bl) {
+          if (!entry.OT) continue;
           if (entry.OT.includes("Multiple")) search.push(entry);
         }
         var i = 0;
@@ -243,8 +245,8 @@
 
     function formatEntry(entry) {
       return "<tr>" + "\n" +
-        "<th scope=\"row\">" + entry.OT + "</th>" + "\n" +
-        "<td>" + entry["ID #s"] + "</td>" + "\n" +
+        "<th scope=\"row\">" + (entry.OT ? entry.OT : "&mdash;") + "</th>" + "\n" +
+        "<td>" + (entry["ID #s"] ? entry["ID #s"] : "&mdash;") + "</td>" + "\n" +
         "<td>" + (entry["User tags / Comments"] ? entry["User tags / Comments"] : "&mdash;") + "</td>" + "\n" +
         "<td>" + (entry["(+ all link/youtuber/twitch/ebay/etc. OTs)"] ? entry["(+ all link/youtuber/twitch/ebay/etc. OTs)"] : "&mdash;") + "</td>";
     }
